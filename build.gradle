@@ -23,6 +23,18 @@ tasks.test {
 	finalizedBy jacocoTestReport
 }
 
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.50
+			}
+		}
+	}
+}
+
+tasks.check.dependsOn jacocoTestCoverageVerification
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)

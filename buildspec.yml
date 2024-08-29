@@ -6,6 +6,7 @@ phases:
       java: corretto21
     commands:
       - echo "Instalando dependências..."
+      - chmod +x ./gradlew
       - ./gradlew clean build
   build:
     commands:
