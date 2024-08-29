@@ -9,13 +9,16 @@ group = 'com.aws.testes'
 version = '0.0.1-SNAPSHOT'
 
 jacoco {
-	toolVersion = "0.8.7"
+	toolVersion = "0.8.10"
 }
 
 jacocoTestReport {
-	reports {
-		xml.required = true
-		html.required = true
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'sun/util/resources/cldr/provider/CLDRLocaleDataMetaInfo.class'
+			])
+		}))
 	}
 }
 
