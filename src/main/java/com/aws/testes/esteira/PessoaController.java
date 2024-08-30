@@ -1,6 +1,5 @@
 package com.aws.testes.esteira;
 
-import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 @RestController
 public class PessoaController {
 
-    ArrayList listaPessoas = new ArrayList<>();
+    private ArrayList<Pessoa> listaPessoas = new ArrayList<>();
 
     @PostMapping("/create")
     public Mono<Pessoa> createPessoa(@RequestBody Pessoa pessoa){
