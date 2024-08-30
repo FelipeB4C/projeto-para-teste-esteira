@@ -23,7 +23,8 @@ reports:
     files:
       - '**/build/test-results/test/*.xml'
     base-directory: .
-  cobertura:
+  jacoco:
     files:
-      - '**/build/reports/jacoco/test/*.xml'
-    base-directory: .
+      - 'build/reports/jacoco/test/jacocoTestReport.xml'
+    file-format: JACOCOXML
+    base-directory: build/reports/jacoco/test
