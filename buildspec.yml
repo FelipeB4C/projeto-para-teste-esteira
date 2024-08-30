@@ -21,9 +21,9 @@ artifacts:
 reports:
   junit:
     files:
-      - build/test-results/test/*.xml
-    base-directory: build/test-results/test
+      - '**/build/test-results/test/*.xml'
+    base-directory: .
   cobertura:
     files:
-      - build/reports/jacoco/test/*.xml
-    base-directory: build/reports/jacoco/test
+      - '**/build/reports/jacoco/test/*.xml'
+    base-directory: .
