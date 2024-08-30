@@ -6,8 +6,6 @@ phases:
       java: corretto-21
     commands:
       - echo Instalar dependências
-      - yum update -y
-      - yum install -y java-21-amazon-corretto-devel
       - chmod +x ./gradlew  # Adiciona permissão de execução ao gradlew
   build:
     commands:
