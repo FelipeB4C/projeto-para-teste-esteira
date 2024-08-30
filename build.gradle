@@ -32,6 +32,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('junitJupiterVersion', '5.9.3') // Atualize para a versão mais recente
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -39,11 +43,14 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude group: 'junit', module: 'junit'
+	}
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 tasks.named('test') {
@@ -55,8 +62,10 @@ jacoco {
 }
 
 jacocoTestReport {
+	dependsOn test
 	reports {
 		xml.required = true
+		xml.destination = file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
 		html.required = true
 	}
 }
@@ -65,7 +74,7 @@ jacocoTestCoverageVerification {
 	violationRules {
 		rule {
 			limit {
-				minimum = 0.50
+				minimum = 0.75
 			}
 		}
 	}
