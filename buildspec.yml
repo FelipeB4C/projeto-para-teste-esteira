@@ -1,17 +1,10 @@
-version: 0.2
+FROM amazonlinux:2
 
-phases:
-  install:
-    runtime-versions:
-      java: corretto-21
-    commands:
-      - echo Instalar dependências
-      - chmod +x ./gradlew  # Adiciona permissão de execução ao gradlew
-      - ./gradlew clean
-  build:
-    commands:
-      - echo Compilando o projeto
-      - ./gradlew build
-artifacts:
-  files:
-    - build/libs/**/*.jar
+RUN yum update -y && \
+yum install -y java-21-amazon-corretto-devel && \
+yum install -y gradle
+
+WORKDIR /app
+COPY . .
+
+CMD ["./gradlew", "build"]
