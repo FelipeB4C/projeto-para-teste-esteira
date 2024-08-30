@@ -2,10 +2,13 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      java: corretto-21
     commands:
       - echo Instalar dependências
       - apt-get update
       - apt-get install -y java-21-amazon-corretto-jdk
+      - chmod +x ./gradlew  # Adiciona permissão de execução ao gradlew
       - ./gradlew clean
   build:
     commands:
