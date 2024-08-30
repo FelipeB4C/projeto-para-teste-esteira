@@ -22,6 +22,8 @@ reports:
   junit:
     files:
       - build/test-results/test/*.xml
+    base-directory: build/test-results/test
   cobertura:
     files:
       - build/reports/jacoco/test/*.xml
+    base-directory: build/reports/jacoco/test
