@@ -3,24 +3,14 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto21
+      java: corretto-21
     commands:
-      - echo "Instalando dependências..."
-      - chmod +x ./gradlew
-      - ./gradlew clean build
+      - echo Instalar dependências
+      - ./gradlew clean
   build:
     commands:
-      - echo "Executando testes..."
-      - ./gradlew test jacocoTestReport
-  post_build:
-    commands:
-      - echo "Analisando cobertura de código..."
-      - ./gradlew jacocoTestReport
+      - echo Compilando o projeto
+      - ./gradlew build
 artifacts:
   files:
-    - build/reports/**
-  discard-paths: yes
-reports:
-  jacoco:
-    files:
-      - 'build/reports/jacoco/test/html/index.html'
+    - build/libs/**/*.jar
