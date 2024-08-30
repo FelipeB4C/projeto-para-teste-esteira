@@ -8,44 +8,18 @@ plugins {
 group = 'com.aws.testes'
 version = '0.0.1-SNAPSHOT'
 
-jacoco {
-	toolVersion = "0.8.10"
-}
-
 tasks.withType(JavaCompile) {
 	options.compilerArgs << "-Xlint:unchecked"
 }
-
-jacocoTestReport {
-	afterEvaluate {
-		classDirectories.setFrom(files(classDirectories.files.collect {
-			fileTree(dir: it, exclude: [
-					'sun/util/resources/cldr/provider/CLDRLocaleDataMetaInfo.class'
-			])
-		}))
-	}
-}
-
-tasks.test {
-	finalizedBy jacocoTestReport
-}
-
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.50
-			}
-		}
-	}
-}
-
-tasks.check.dependsOn jacocoTestCoverageVerification
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+}
+
+tasks.test {
+	finalizedBy jacocoTestReport
 }
 
 configurations {
@@ -73,3 +47,29 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jacoco {
+	toolVersion = "0.8.10"
+}
+
+jacocoTestReport {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'sun/util/resources/cldr/provider/CLDRLocaleDataMetaInfo.class'
+			])
+		}))
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.50
+			}
+		}
+	}
+}
+
+tasks.check.dependsOn jacocoTestCoverageVerification
